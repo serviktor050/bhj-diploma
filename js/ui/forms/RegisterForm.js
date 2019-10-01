@@ -11,5 +11,13 @@ class RegisterForm {
    * и закрывает окно, в котором находится форма
    * */
   onSubmit( options ) {
+    User.register(options, (err, response) => {
+      if (response && (response.success === true)) {
+        this.element.reset();
+        App.setState("user-logged");
+        let registerModal = App.getModal("register");
+        registerModal.close();
+      }
+    })
   }
 }
