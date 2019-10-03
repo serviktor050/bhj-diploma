@@ -9,7 +9,8 @@ class CreateTransactionForm {
    * метод renderAccountsList
    * */
   constructor( element ) {
-
+    super (element);
+    this.renderAccountsList();
   }
 
   /**
@@ -17,7 +18,15 @@ class CreateTransactionForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
-
+    const accountsSelectList = document.querySelector(".accounts-select");
+    let accountLists = [];
+    Account.list(accountLists, (err, response) => {
+      if (response && (response.success === true)) {
+        accountLists.forEach(function(item, i, accountLists) {
+          return accountsSelectList.innerHTML += `<option value="${item.id}">${item.name}</option>`          
+        }, this)
+      }
+    })
   }
 
   /**
@@ -27,6 +36,15 @@ class CreateTransactionForm {
    * в котором находится форма
    * */
   onSubmit( options ) {
+    /*Transaction.create(options, (err, response) => {
+      if (response && (response.success === true)) {        
+        this.element.reset();
 
+        let transactionModal = App.getModal("");//?
+        transactionModal.close();
+
+        App.update();        
+      }
+    })*/
   }
 }
