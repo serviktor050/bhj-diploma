@@ -40,7 +40,7 @@ class CreateTransactionForm extends AsyncForm {
         this.element.reset();
         const {type} = options.data;
         modalName = 'new' + type[0].toUpperCase() + type.substr(1);
-        let transactionModal = App.getModal(modalName);//?
+        let transactionModal = App.getModal(modalName);
         transactionModal.close();
         App.update();        
       }
