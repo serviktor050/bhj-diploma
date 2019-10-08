@@ -10,19 +10,19 @@ const createRequest = (options = {}) => {
     xhr.withCredentials = true;
 
     if (options.method === "GET") {
-        for (let name in options.data) {
-            options.url += `?${name}=${options.data[name]}&`;
+        for (let item in options.data.data) {
+            options.url += `?${item}=${options.data.data[item]}&`;
         }  
     }else {
-        for (let name in options.data) {
-            formData.append(name, options.data[name]);
+        for (let item in options.data.data) {
+            formData.append(item, options.data.data[item]);
         }
     }
 
     xhr.addEventListener("readystatechange", function(event) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = xhr.response;
-            options.callback(err, response);
+            options.callback(null, response);
             console.log(response)
         }
     })
