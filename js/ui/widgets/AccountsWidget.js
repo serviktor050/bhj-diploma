@@ -29,17 +29,18 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    const createAccount = document.querySelector(".create-account");
-    const formedAccounts = document.querySelectorAll(".account");
+    const createAccount = this.element.querySelector(".create-account");
+    const formedAccounts = this.element.querySelectorAll(".account");
 
     createAccount.addEventListener("click", function(event) {
       event.preventDefault();
-      let formModal = App.getModal("new-account");
+      let formModal = App.getModal("createAccount");
+      formModal.open();
     });
 
     for (let formedAccount of formedAccounts) {
       formedAccount.addEventListener("click", function() {
-        AccountsWidget.onSelectAccount();//?
+        AccountsWidget.onSelectAccount();
       });
     }
 
@@ -63,12 +64,13 @@ class AccountsWidget {
         if (response && (response.success === true)) {
           this.clear();
           accountLists.forEach(function(item, i, accountLists) {
-            item[i].render();
+            item[i].renderItem(item);
           }, this)
         }
       })
     }
   }
+  
 
   /**
    * Очищает список ранее отображённых счетов.
@@ -124,6 +126,6 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem( item ) {
-    this.element.insertAdjacentHTML("beforeEnd", getAccountHTML(item));
+    this.element.insertAdjacentHTML("beforeEnd", this.getAccountHTML(item));
   }
 }
