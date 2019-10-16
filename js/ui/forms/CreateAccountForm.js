@@ -3,7 +3,7 @@
  * создания нового счёта
  * Наследуется от AsyncForm
  * */
-class CreateAccountForm extends AsyncForm{
+class CreateAccountForm extends AsyncForm {
   /**
    * Создаёт счёт с помощью Account.create и закрывает
    * окно (в котором находится форма) в случае успеха,
@@ -13,7 +13,7 @@ class CreateAccountForm extends AsyncForm{
   onSubmit( options ) {
     Account.create(options, (err, response) => {
       if(response && (response.success) === true) {
-        let formModal = App.getModal("new-account");
+        let formModal = App.getModal("createAccount");
         formModal.close();
         this.element.reset();
         App.update();      
