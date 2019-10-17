@@ -40,6 +40,7 @@ class AccountsWidget {
 
     for (let formedAccount of formedAccounts) {
       formedAccount.addEventListener("click", function() {
+        event.preventDefault();
         AccountsWidget.onSelectAccount();
       });
     }
@@ -93,19 +94,14 @@ class AccountsWidget {
    * */
   onSelectAccount( element ) {
     const formedAccounts = this.element.querySelectorAll(".account");
-  
+    const selectedAccount = this.element.querySelector(`.account[data-id="${this.element.dataset.id}"]`);
 
-    /*for (let i = 0; i < formedAccounts.length; i++) {
-      formedAccounts[i].classList.remove("active");
-    }*/
     for (let i = 0; i < formedAccounts.length; i++) {
-      const selectedAccount = this.element.querySelector(`.account[data-id="${this.element.dataset.id}"]`);
-      selectedAccount.addEventListener("click", function(event) {
-        formedAccounts[i].classList.add(".active");
-        App.showPage( "transactions", { account_id: this.element.dataset.id });
-      })
+      formedAccounts[i].classList.remove("active");
     }
 
+    selectedAccount.classList.add("active");
+    App.showPage( "transactions", { account_id: this.element.dataset.id });
   }
 
   /**
