@@ -10,12 +10,12 @@ const createRequest = (options = {}) => {
     xhr.withCredentials = true;
 
     if (options.method === "GET") {
-        for (let item in options.data.data) {
-            options.url += `?${item}=${options.data.data[item]}&`;
+        for (let item in options.data) {
+            options.url += `?${item}=${options.data[item]}&`;
         }  
     }else {
-        for (let item in options.data.data) {
-            formData.append(item, options.data.data[item]);
+        for (let item in options.data) {
+            formData.append(item, options.data[item]);
         }
     }
 

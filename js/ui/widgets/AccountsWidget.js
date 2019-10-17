@@ -59,13 +59,12 @@ class AccountsWidget {
   update() {
     let currentUser = User.current();
     if (currentUser) {
-      let accountLists = [];
-      Account.list(accountLists, (err, response) => {
+      Account.list({}, (err, response) => {
         if (response && (response.success === true)) {
           this.clear();
-          accountLists.forEach(function(item, i, accountLists) {
-            item[i].renderItem(item);
-          }, this)
+          for (let i = 0; i < response.data.length; i++) {
+            this.renderItem(response.data[i]);
+          }
         }
       })
     }
@@ -93,16 +92,20 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    const formedAccounts = document.querySelectorAll(".account");
-    for (let i = 0; i < formedAccounts.length; i++) {
+    const formedAccounts = this.element.querySelectorAll(".account");
+  
+
+    /*for (let i = 0; i < formedAccounts.length; i++) {
       formedAccounts[i].classList.remove("active");
+    }*/
+    for (let i = 0; i < formedAccounts.length; i++) {
+      const selectedAccount = this.element.querySelector(`.account[data-id="${this.element.dataset.id}"]`);
+      selectedAccount.addEventListener("click", function(event) {
+        formedAccounts[i].classList.add(".active");
+        App.showPage( "transactions", { account_id: this.element.dataset.id });
+      })
     }
 
-    const selectedAccount = this.element.querySelector(`.account[data-id="${this.element.dataset.id}"]`);
-    selectedAccount.addEventListener("click", function(event) {
-      selectedAccount.classList.add(".active");
-      App.showPage( "transactions", { account_id: this.element.dataset.id });
-    })
   }
 
   /**
@@ -111,7 +114,7 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML( item ) {
-    return`<li class="active account" data-id="${item.id}">
+    return`<li class="account" data-id="${item.id}">
     <a href="#">
         <span>${item.name}</span> /
         <span>${item.summ}</span>
