@@ -14,7 +14,7 @@ class AccountsWidget {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error
+      throw new Error ("Not Found");
     }
     this.element = element;
     this.registerEvents();
@@ -29,22 +29,14 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    const createAccount = this.element.querySelector(".create-account");
-    const formedAccounts = this.element.querySelectorAll(".account");
-
-    createAccount.addEventListener("click", function(event) {
-      event.preventDefault();
-      let formModal = App.getModal("createAccount");
-      formModal.open();
+    this.element.addEventListener("click", (event) => {
+      if (event.target.closest(".create-account")) {
+        App.getModal("createAccount").open();
+      }
+      if (event.target.closest(".account")) {
+        this.onSelectAccount(event.target.closest(".account"));
+      }
     });
-
-    for (let formedAccount of formedAccounts) {
-      formedAccount.addEventListener("click", function() {
-        event.preventDefault();
-        AccountsWidget.onSelectAccount();
-      });
-    }
-
   }
 
   /**
@@ -93,15 +85,12 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    const formedAccounts = this.element.querySelectorAll(".account");
-    const selectedAccount = this.element.querySelector(`.account[data-id="${this.element.dataset.id}"]`);
-
+    const formedAccounts = this.element.querySelectorAll("li.account");
     for (let i = 0; i < formedAccounts.length; i++) {
       formedAccounts[i].classList.remove("active");
     }
-
-    selectedAccount.classList.add("active");
-    App.showPage( "transactions", { account_id: this.element.dataset.id });
+    element.classList.add("active");
+    App.showPage( "transactions", { account_id: element.dataset.id });
   }
 
   /**
