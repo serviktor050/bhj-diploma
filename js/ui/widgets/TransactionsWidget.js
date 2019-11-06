@@ -14,7 +14,7 @@ class TransactionsWidget {
     this.element = element;
     this.registerEvents();
     if (!element) {
-       throw new Error('Элемент отсутствует');
+       throw new Error("Not Found");
     }
   }
   /**
