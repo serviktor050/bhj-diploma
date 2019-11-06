@@ -171,7 +171,7 @@ class TransactionsPage {
     const id = item.id;
     const type = item.type;
     const name = item.name;
-    const date = this.formatDate(item.date);
+    const date = this.formatDate(item.created_at);
     const sum = item.sum;
     return `
       <div class="transaction transaction_${type} row">
