@@ -14,7 +14,7 @@ class AsyncForm {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error;      
+      throw new Error ("Not Found");      
     }
     this.element = element;
     this.registerEvents();
