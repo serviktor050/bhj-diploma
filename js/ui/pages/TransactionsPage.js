@@ -88,23 +88,25 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render( options ) {
-    if (options) {
-      this.lastOptions = options;
-
-      Account.get("id", options.account_id, (err, response) => {
-        if (response) {
-          this.renderTitle(response.data.name);
-        }
-      });
-
-      Transaction.list(options, (err, response) => {
-        if (response.data) {
-          this.renderTransactions(response.data);
-        }
-      });
-    } else {
-      throw new Error
+    if (!options) {
+      return;
     }
+    if (!options.account_id) {
+      return;
+    }
+    this.lastOptions = options;
+
+    Account.get(options.account_id, {}, (err, response) => {
+      if (response) {
+        this.renderTitle(response.data.name);
+      }
+    });
+
+    Transaction.list(options, (err, response) => {
+      if (response.data) {
+        this.renderTransactions(response.data);
+      }
+    });
   }
 
   /**
