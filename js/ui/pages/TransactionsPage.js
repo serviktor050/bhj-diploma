@@ -12,7 +12,7 @@ class TransactionsPage {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error
+      throw new Error ("Элемент не задан в TransactionsPage");
     }
     this.element = element;
     this.registerEvents();
@@ -57,7 +57,7 @@ class TransactionsPage {
   removeAccount() {
     if (this.lastOptions) {
       if (confirm("Вы действительно хотите удалить счет?")) {
-        Account.remove("id", this.lastOptions.account_id, (err, response) => {
+        Account.remove(this.lastOptions.account_id, {}, (err, response) => {
           if (response && response.success) {
             App.update();
           }
@@ -73,7 +73,7 @@ class TransactionsPage {
    * */
   removeTransaction( id ) {
     if (confirm("Вы действительно хотите удалить эту транзакцию?")) {
-      Transaction.remove("id", id, (err, response) => {
+      Transaction.remove(id, {}, (err, response) => {
         if (response && response.success) {
           App.update();
         }
