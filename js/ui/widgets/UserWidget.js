@@ -12,7 +12,7 @@ class UserWidget {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error;      
+      throw new Error ("Элемент не задан в UserWidget");      
     }
     this.element = element;
   }

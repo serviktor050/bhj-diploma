@@ -14,7 +14,7 @@ class AsyncForm {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error ("Not Found");      
+      throw new Error ("Элемент не задан в AsyncForm");      
     }
     this.element = element;
     this.registerEvents();
@@ -29,8 +29,6 @@ class AsyncForm {
       if(this.element.checkValidity()) {
         e.preventDefault();
         this.submit();
-      } else {
-        return
       }
     })
   }

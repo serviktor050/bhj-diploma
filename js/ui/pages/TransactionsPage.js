@@ -55,15 +55,17 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-    if (this.lastOptions) {
-      if (confirm("Вы действительно хотите удалить счет?")) {
-        Account.remove(this.lastOptions.account_id, {}, (err, response) => {
-          if (response && response.success) {
-            App.update();
-          }
-        });
-      }
+    if (!this.lastOptions) {
+      return
     }
+    if (!confirm("Вы действительно хотите удалить счет?")) {
+      return
+    }
+    Account.remove(this.lastOptions.account_id, {}, (err, response) => {
+      if (response && response.success) {
+        App.update();
+      }
+    });
   }
 
   /**

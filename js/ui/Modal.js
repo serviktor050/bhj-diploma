@@ -14,7 +14,7 @@ class Modal {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error ("Not Found");      
+      throw new Error ("Элемент не задан в Modal");      
     }
     this.element = element;
     this.registerEvents();
@@ -48,7 +48,7 @@ class Modal {
     const deleteButtons = this.element.querySelectorAll('[data-dismiss="modal"]');
     this.onClose = this.onClose.bind(this);
     for (let deleteButton of deleteButtons) {
-      deleteButton.addEventListener("click", this.onClose);
+      deleteButton.removeEventListener("click", this.onClose);
     }
   }
   /**
