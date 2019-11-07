@@ -14,7 +14,7 @@ class AccountsWidget {
    * */
   constructor( element ) {
     if (!element) {
-      throw new Error ("Not Found");
+      throw new Error ("Элемент не задан в AccountsWidget");
     }
     this.element = element;
     this.registerEvents();
@@ -52,12 +52,14 @@ class AccountsWidget {
   update() {
     let currentUser = User.current();
     if (currentUser) {
-      Account.list({}, (err, response) => {
-        if (response && (response.success === true)) {
+      Account.list(currentUser, (err, response) => {
+        if (response) {
           this.clear();
           for (let i = 0; i < response.data.length; i++) {
             this.renderItem(response.data[i]);
           }
+        } else {
+          console.log("Ошибка при обновлении списка счетов");
         }
       })
     }
