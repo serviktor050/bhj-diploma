@@ -64,4 +64,4 @@ class Entity {
   }
 }
 Entity.URL = "";
-Entity.HOST = /*"https://bhj-diplom.letsdocode.ru"*/"https://bhj-diploma.herokuapp.com";
+Entity.HOST = "https://bhj-diplom.letsdocode.ru"/*"https://bhj-diploma.herokuapp.com"*/;
