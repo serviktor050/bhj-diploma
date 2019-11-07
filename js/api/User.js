@@ -43,11 +43,10 @@ class User {
       responseType: "json",
       data,
       callback: (err, response) => {
-        if (response.user && (response.success === true)) {
-          User.setCurrent(response.user);
-        }
-        if (response.success === false) {
-          User.unsetCurrent();
+        if (response.user) {
+          this.setCurrent(response.user);
+        } else {
+          this.unsetCurrent();
         }
         callback(err, response);
       }
