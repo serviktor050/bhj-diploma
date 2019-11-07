@@ -12,11 +12,13 @@ class CreateAccountForm extends AsyncForm {
    * */
   onSubmit( options ) {
     Account.create(options.data, (err, response) => {
-      if(response && (response.success) === true) {
+      if(response && response.success) {
         let formModal = App.getModal("createAccount");
         formModal.close();
         this.element.reset();
         App.update();      
+      } else {
+        console.log("Ошибка при создании счета");
       }
     });
   }
