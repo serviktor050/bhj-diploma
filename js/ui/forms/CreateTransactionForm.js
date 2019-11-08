@@ -22,6 +22,7 @@ class CreateTransactionForm extends AsyncForm {
 
     Account.list(User.current(), (err, response) => {
       if (response.data) {
+        accountsSelectList.innerHTML = "";
         response.data.forEach((item) => {
           accountsSelectList.innerHTML += `<option value="${item.id}">${item.name}</option>`;
         })
