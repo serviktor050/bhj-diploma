@@ -63,6 +63,7 @@ class TransactionsPage {
     }
     Account.remove(this.lastOptions.account_id, {}, (err, response) => {
       if (response && response.success) {
+        this.clear();
         App.update();
       }
     });
@@ -207,6 +208,7 @@ class TransactionsPage {
   renderTransactions( data ) {
     const element = this.element.querySelector(".content");
     if (data) {
+      element.innerHTML = "";
       for (let i = 0; i < data.length; i++) {
         element.innerHTML += this.getTransactionHTML(data[i]);
       }

@@ -11,11 +11,11 @@ class TransactionsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
+    if (!element) {
+      throw new Error("Элемент не задан в TransactionsWidget");
+    }
     this.element = element;
     this.registerEvents();
-    if (!element) {
-       throw new Error("Not Found");
-    }
   }
   /**
    * Регистрирует обработчики нажатия на
